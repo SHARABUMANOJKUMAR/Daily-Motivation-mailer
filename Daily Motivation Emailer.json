@@ -1,0 +1,134 @@
+{
+  "name": "Daily Motivation Emailer",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "83b5fc21-3a41-4bf5-aede-96572fdb9471",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://zenquotes.io/api/random",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e9f91318-91da-41c9-ae4e-3df8cdb241a1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "29db11d7-6187-4660-9fbc-d258c367650d",
+      "name": "Execution Data"
+    },
+    {
+      "parameters": {
+        "sendTo": "sharabumanoj123@gmail.com",
+        "subject": "🌞 Your Daily Motivation",
+        "emailType": "text",
+        "message": "=Good Morning Manoj 🌅   Here’s your quote of the day:    \"{{ $json[\"q\"] }}\"   — {{ $json[\"a\"] }}  Have a wonderful day ahead! ✨",
+        "options": {
+          "senderName": "={{ $workflow.name }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        432,
+        224
+      ],
+      "id": "c403eb6d-0ca2-4bfd-aef8-e6ad78597b5a",
+      "name": "Send a message",
+      "webhookId": "0bdb2336-6231-451a-8f1f-4f98a0126bd6",
+      "notesInFlow": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Y4O1gw196AXLjSc1",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v0",
+    "timezone": "Indian/Antananarivo",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromAList",
+    "executionTimeout": 180,
+    "availableInMCP": false,
+    "timeSavedPerExecution": 0,
+    "errorWorkflow": "Iky9iyUsKeDBtrmo"
+  },
+  "versionId": "e2c0ab76-e28c-4fdb-89d4-71fa6aa33139",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e26bf43309d89032509aedd6d9b0df907eafac62ce06f98f57cb8870a783eaec"
+  },
+  "id": "Iky9iyUsKeDBtrmo",
+  "tags": []
+}
